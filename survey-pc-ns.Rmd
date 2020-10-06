@@ -33,7 +33,7 @@ Overall this report will aid the PC Party of Nova Scotia when coming to the publ
 
 ```{r}
 # The code for this report can be found at 
-# https://github.com/karhian/survey-nova-scotia/blob/master/Gun%20Control%20in%20Nova%20Scotia.Rmd
+# https://github.com/karhian/PC-Nova-Scotia/blob/main/survey-pc-ns.Rmd
 ```
 
 
@@ -62,17 +62,7 @@ Breaking down the cost of this survey, for each letter we mailed to a household 
 # Results
 Below shows a rough table of how we organised our information, with one response taking up one row.
 
-graphs to make:
-
-1. pie chart on political affiliation
-
-2. bar chart on age
-
-3. bar chart on people who know about shooting
-
-4. chart chart on appproval
-
-5. divide approval by age and maybe political affiliation?
+Further details on the questions will be in the appendix 
 ```{r, echo = FALSE}
 #Data simulation
 #"What is your political affiliation?"
@@ -96,6 +86,8 @@ Q6_answers <- c("Yes, I will vote for them", "Undecided", "No, I will not vote f
 #"Are you planning to vote in the next election?"
 Q7_answers <- c("Yes", "No")
 
+#"Have you heard about the April 2020 Nova Scotia Attacks?"
+Q8_answers <- c("Yes", "No")
 
 #creating table with simulated data using simple random samples
 set.seed(7)
@@ -105,9 +97,10 @@ our_cluster_data <-
          Question_2 = sample(x= Q2_answers, size = 500, replace = TRUE),
          Question_3 = sample(x = Q3_answers, size = 500, replace = TRUE),
          Question_4 = sample( x= Q4_answers, size= 500, replace = TRUE),
-         Question_5 = sample(x = Q5_answers, size = 500, replace = TRUE),
+         Question_5 = sample(x = Q5_answers, size = 500, replace = TRUE,prob = c(0.22,0.78)),
          Question_6 = sample(x = Q6_answers, size = 500, replace = TRUE),
-         Question_7 = sample(x = Q7_answers, size = 500, replace = TRUE))
+         Question_7 = sample(x = Q7_answers, size = 500, replace = TRUE),
+         Question_8 = sample(x = Q8_answers, size = 500, replace = TRUE),)
 
 #randomly choosing 100 entries within the previous table
 set.seed(9)
@@ -117,7 +110,7 @@ head(final_sample_table)
 
 ```
 
-# Figures
+
 ```{r, echo = FALSE,message=FALSE}
 #Pie chart of demographic
 
@@ -135,17 +128,47 @@ head(final_sample_table)
 ```
 
 
+```{r, echo = FALSE,message=FALSE}
+# bar chart on age
+final_sample_table$Question_3 <-
+  factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "30-50", "50-64", "64+"),ordered = TRUE)
+
+final_sample_table  %>%
+ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
+  labs(x="Age",y="Frequency") 
+
+```
+
+
+```{r, echo = FALSE}
+# Bar chart on appproval above the age of 18
+
+final_sample_table  %>%
+  filter(Question_3 >= "18-30") %>%
+ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge") + ggtitle("Figure 3: Approval ratings above the age of 18") +
+  labs(x="Approval",y="Frequency",fill = "Age") 
+```
+
+```{r,echo = FALSE}
+# Bar chart on appproval based on political affiliation
+final_sample_table  %>%
+ggplot(aes(Question_5,fill=Question_1)) + geom_bar(position = "dodge") + ggtitle("Figure 4: Approval ratings based on political affiliation") + 
+  labs(x="Approval",y="Frequency",fill = "Political affiliation") 
+```
+
+```{r, echo=FALSE}
+# bar chart on people who know about shooting
+final_sample_table  %>%
+ggplot(aes(Question_8)) + geom_bar() + ggtitle("Figure 5: 'Have you heard about the April 2020 Nova Scotia Attacks?'")+
+  labs(x="Heard about the attacks",y="Frequency") 
+```
 
 # Discussions
-From the graphs above we can see that the majority of people that made up our sample population come from a Conservative stance (41%), while the next highest is Others (32%) and the lowest being Liberal (27%). This tells us that many of the population are not liberal and have much more conservative views on gun control.
+From the graphs above we can see that the majority of people that made up our sample population come from a Conservative stance (41%), while the next highest is Others (32%) and the lowest being Liberal (27%). This tells us that many of the population are not liberal and have much more conservative views on gun control. We received responses from all age groups with those below the age of 18 being the lowest as shown in figure 2. This may be due to those under the age of 18 who could not vote in the election. 
 
--divide by age groups
+The approval ratings for the  Progressive Conservative Party of Nova Scotia is very low. From figure 3 we get to see that those between the age of 18-30 do not approve their policies. One way to improve their approval rating is by draft new policies which appeal to those of the age group 18-30. By filtering those below the age of 18, we can see a decreasing trend on those who do not approve the Progressive Conservative Party of Nova Scotia's policies. When we took a look at the approval rating based on political affiliations in figure 4, surprisingly, the majority of those who said they supported the Progressive Conservative Party of Nova Scotia does not approve their policies.
 
--get approval ratings
-
--talk about how many people know about the shootings
-
--discuss possible changes to make following this info. (to policies and presentation.)
+We wanted to see if the nova scotia attacks affect the Progressive Conservative Party of Nova Scotia's rating. This question was asked based on the Progressive Conservative Party of Nova Scotia's stance on gun ownership but based on figure 5 where we asked if they heard about the nova scotia attacks, there is a close 50-50 split with those saying no being higher than yes. Further work needs to be done on this as we can't conclude if the drop in ratings was due to gun ownership.
 
 
 ## Weaknesses and opportunities for futute work
@@ -154,10 +177,21 @@ The main bias that may be apparent in the data is caused by the data collection 
 
 This survey also requires and internet connection which not all citizens have the privelege using. It could lead the bias for those with fractionally higher income levels as they have access to internet. Another way the data could be biased is the fact that it's only done by one person per household. Everyone in the house could have differing political opinions and this survey may not have captured this accurately.
 
+Other potential future work is to survey young votes on what policy they would want to see.
+
 # Appendices that detail the survey
 Link to Survey: https://www.surveymonkey.com/r/G59282K
 
-- need to add screenshots of questions.
+Screenshots of the survey:
+
+![](Q1.png)
+![](Q2.png)
+![](Q3.png)
+![](Q4.png)
+![](Q5.png)
+![](Q6.png)
+![](Q7.png)
+![](Q8.png)
 
 # References
 
