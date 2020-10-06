@@ -141,7 +141,7 @@ ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
 
 
 ```{r, echo = FALSE}
-# Bar chart on appproval above the age of 18
+# Bar chart about approval ratings for ages above 18
 
 final_sample_table  %>%
   filter(Question_3 >= "18-30") %>%
