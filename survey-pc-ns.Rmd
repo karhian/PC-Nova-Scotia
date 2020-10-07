@@ -103,7 +103,7 @@ head(final_sample_table)
   group_by(Question_1) %>%
   summarise(number=n(),percentage=n()/nrow(final_sample_table))%>%   
   ggplot(aes(x="",y=number,fill=Question_1,)) + 
-  geom_bar(stat="identity") + 
+  geom_bar(stat="identity",colour="black") + 
   coord_polar("y", start=0) + 
   theme(axis.text.x=element_blank(),
         axis.title =element_blank()) + 
@@ -119,7 +119,7 @@ final_sample_table$Question_3 <-
   factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "31-49", "50-64", "65+"),ordered = TRUE)
 
 final_sample_table  %>%
-ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
+ggplot(aes(Question_3)) + geom_bar(fill ="#DAF7A6",colour="black") + ggtitle("Figure 2: Age distribution")+
   labs(x="Age",y="Frequency") 
 
 ```
@@ -129,22 +129,22 @@ ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
 # Bar chart about approval ratings for ages 18 and above
 final_sample_table  %>%
   filter(Question_3 >= "18-30") %>%
-ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge") + ggtitle("Figure 3: Approval ratings for age 18 and above") +
+ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge",colour="black") + ggtitle("Figure 3: Approval ratings for age 18 and above") +
   labs(x="Approval",y="Frequency",fill = "Age") 
 ```
 
 ```{r,echo = FALSE}
 # Bar chart on appproval based on political affiliation
 final_sample_table  %>%
-ggplot(aes(Question_5,fill=Question_1)) + geom_bar(position = "dodge") + ggtitle("Figure 4: Approval ratings based on political affiliation") + 
+ggplot(aes(Question_5,fill=Question_1)) + geom_bar(position = "dodge",colour="black") + ggtitle("Figure 4: Approval ratings based on political affiliation") + 
   labs(x="Approval",y="Frequency",fill = "Political affiliation") 
 ```
 
 ```{r, echo=FALSE}
 # bar chart on people who know about shooting
 final_sample_table  %>%
-ggplot(aes(Question_8)) + geom_bar() + ggtitle("Figure 5: 'Have you heard about the April 2020 Nova Scotia Attacks?'")+
-  labs(x="Heard about the attacks",y="Frequency") 
+ggplot(aes(Question_8)) + geom_bar(fill = "#e4bf62",colour="black") + ggtitle("Figure 5: 'Have you heard about the April 2020 Nova Scotia Attacks?'")+
+  labs(x="Heard about the attacks",y="Frequency")
 ```
 
 # Discussions
