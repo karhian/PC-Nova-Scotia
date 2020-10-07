@@ -11,7 +11,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE,fig.width = 12,fig.height = 4)
 library(tidyverse)
 ```
-We use @citer, @citerstudio, @citetidyverse, @citermd, @citepolls,@citeattacks, @citeban, @citelunenberg, @citearglye, @citearglyecensus, @citelunenbergcensus
+We use @citer, @citerstudio, @citetidyverse, @citermd, @citepolls,@citeattacks, @citeban, @citelunenberg, @citearglye, @citearglyecensus, @citelunenbergcensus, @citepolls2
 
 # Non-technical executive summary
 
