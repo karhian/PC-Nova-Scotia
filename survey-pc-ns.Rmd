@@ -58,7 +58,7 @@ Q1_answers <- c("Conservative", "Liberal", "Other")
 Q2_answers <- c("1-5 People", "6-10 People", "More Than 10 People")
 
 #"What is your age?"
-Q3_answers <- c("Under 18", "18-30", "30-50", "50-64", "64+")
+Q3_answers <- c("Under 18", "18-30", "31-49", "50-64", "65+")
 
 #" Have you heard of the Progressive Conservative Association of Nova Scotia?"
 Q4_answers <- c("Yes", "No")
@@ -117,7 +117,7 @@ head(final_sample_table)
 ```{r, echo = FALSE,message=FALSE}
 # bar chart on age
 final_sample_table$Question_3 <-
-  factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "30-50", "50-64", "64+"),ordered = TRUE)
+  factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "31-49", "50-64", "65+"),ordered = TRUE)
 
 final_sample_table  %>%
 ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
@@ -127,11 +127,10 @@ ggplot(aes(Question_3)) + geom_bar() + ggtitle("Figure 2: Age distribution")+
 
 
 ```{r, echo = FALSE}
-# Bar chart about approval ratings for ages above 18
-
+# Bar chart about approval ratings for ages 18 and above
 final_sample_table  %>%
   filter(Question_3 >= "18-30") %>%
-ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge") + ggtitle("Figure 3: Approval ratings above the age of 18") +
+ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge") + ggtitle("Figure 3: Approval ratings for age 18 and above") +
   labs(x="Approval",y="Frequency",fill = "Age") 
 ```
 
