@@ -21,7 +21,7 @@ Through cluster sampling via mail, then random selection of responses, we asked 
 
 We found that the results do divide quite significantly by age groups. Each generation of people have differing views and require much attention for their opinions to be taken into consideration. Through several graphs and table, we hope to enlighten the party of the current political climate of the province and help suggests solutions for possible problems.
 
-As for weaknesses in this report, it's with the possibilities of bias. We were not able to sample everyone in a household, rather just the head of it, which may not represent the whole house's political views. And for future work, we may want to diversify our surveys to target different demographics and have questions catered for different age groups.
+As for weaknesses in this report, it is with the possibilities of bias. We were not able to sample everyone in a household, rather just the head of it, which may not represent the whole house's political views. And for future work, we may want to diversify our surveys to target different demographics and have questions catered for different age groups.
 
 # Introduction
 On the night of April 18th, 2020, a mass shooting lasted 12 hours, killing at least 22 peoples; some being public workers such as a nurse and firefighter. Following this heart-wrenching event, Canada introduced a ban of 'assault style' firearms nationwide to avoid such an event happening again. With how recent these incidents are, it brings up the conversation about gun control/violence. Bringing up these conversations make the public think more critically about their political stance and even for some, form one. The data here has been collected via online voluntary surveys and is filled with only closed questions, for easier categorization. Due to this and the nature of our survey being voluntary, we thought that we may receive more responses asking now rather than later when these conversations have died down. When examining the data, we tried to divide it through their age group and political affiliation to analyse people’s opinion and their support of a party more easily. This will help the PC of Nova Scotia look at their current popularity to help gauge how the public feels about their policies and how they should adapt with these findings.
@@ -101,10 +101,10 @@ head(final_sample_table)
 
   final_sample_table  %>%
   group_by(Question_1) %>%
-  summarise(number=n(),percentage=n()/nrow(final_sample_table))%>%   
+  summarise(number=n(),percentage=n()/nrow(final_sample_table))%>%   #get the frequency and percentage
   ggplot(aes(x="",y=number,fill=Question_1,)) + 
   geom_bar(stat="identity",colour="black") + 
-  coord_polar("y", start=0) + 
+  coord_polar("y", start=0) +  #make the graph into a pie
   theme(axis.text.x=element_blank(),
         axis.title =element_blank()) + 
   ggtitle("Figure 1: Political affiliations in nova scotia") + 
@@ -116,7 +116,7 @@ head(final_sample_table)
 ```{r, echo = FALSE,message=FALSE}
 # bar chart on age
 final_sample_table$Question_3 <-
-  factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "31-49", "50-64", "65+"),ordered = TRUE)
+  factor(final_sample_table$Question_3,levels =c("Under 18", "18-30", "31-49", "50-64", "65+"),ordered = TRUE) #order the input so that the bar chart is in order
 
 final_sample_table  %>%
 ggplot(aes(Question_3)) + geom_bar(fill ="#DAF7A6",colour="black") + ggtitle("Figure 2: Age distribution")+
@@ -128,7 +128,7 @@ ggplot(aes(Question_3)) + geom_bar(fill ="#DAF7A6",colour="black") + ggtitle("Fi
 ```{r, echo = FALSE}
 # Bar chart about approval ratings for ages 18 and above
 final_sample_table  %>%
-  filter(Question_3 >= "18-30") %>%
+  filter(Question_3 >= "18-30") %>%  # only take those who are 18 and above
 ggplot(aes(Question_5,fill=Question_3)) + geom_bar(position = "dodge",colour="black") + ggtitle("Figure 3: Approval ratings for age 18 and above") +
   labs(x="Approval",y="Frequency",fill = "Age") 
 ```
